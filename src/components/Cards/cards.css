@@ -1,0 +1,25 @@
+.container-cards {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+
+.cards {
+    list-style: none;
+    border: 1px solid rgb(65, 87, 84);
+    border-radius: 10px;
+    box-shadow: 10px 15px 10px hsla(0, 0%, 8%, 0.767);
+    padding: 30px;
+    width: 300px;
+    height: auto;
+    background-color: black;    
+}
+
+.card textarea {
+    color: white;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+}

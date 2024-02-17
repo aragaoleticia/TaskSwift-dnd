@@ -1,0 +1,30 @@
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
+    margin-top: 25px;
+    border-radius: 10px;
+}
+
+.todo p {
+    font-size: 18px;
+    font-weight: 500;
+    flex-grow: 1;
+    overflow-wrap: break-word;
+}
+
+
+.todo img {
+    width: 20px;
+    margin-right: 8px;
+    margin-left: 10px;
+    cursor: pointer;
+    
+}
+
+
+.completed {
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+}
