@@ -20,10 +20,27 @@ const TaskCard = () => {
         }
     ]
 
-    const initialTasks = new Map()
-    defaultColumns.forEach(column => {
-        initialTasks.set(column.status, [])
-    })
+    
+    const saveTasksToLocalStorage = () => {
+        localStorage.setItem('tasks', JSON.stringify(Array.from(tasks.entries())))
+    }
+    
+    const getTasksFromLocalStorage = () => {
+        const tasksEntries = localStorage.getItem('tasks');
+        if(tasksEntries) {
+            return new Map(JSON.parse(tasksEntries))
+        }else{
+            const initialTasks = new Map()
+            defaultColumns.forEach(column => {
+                initialTasks.set(column.status, [])
+            })
+            return initialTasks
+        }
+    }
+    
+    const initialTasks = getTasksFromLocalStorage()
+
+
 
     const [tasks, setTasks] = useState(initialTasks);
 
@@ -42,6 +59,7 @@ const TaskCard = () => {
 
         const newTasks = new Map([...tasks]);
         newTasks.set('TODO', todos)
+        saveTasksToLocalStorage(newTasks);
         setTasks(newTasks);
     };
     
@@ -51,7 +69,7 @@ const TaskCard = () => {
 
         const taskList = tasks.get(foundTask.status)
             .map(task => {
-                if(task.id == id) {
+                if(task.id === id) {
                     return {...task, completed: !task.completed}
                 } else {
                     return task
@@ -60,7 +78,7 @@ const TaskCard = () => {
 
         const newTasks = new Map([...tasks]);
         newTasks.set(foundTask.status, taskList)
-
+        saveTasksToLocalStorage(newTasks);
         setTasks(newTasks)
     };
 
@@ -71,8 +89,8 @@ const TaskCard = () => {
 
         const newTasks = new Map([...tasks]);
         newTasks.set(foundTask.status, taskList)
-    
-        setTasks(newTasks)
+        saveTasksToLocalStorage(newTasks);
+        setTasks(newTasks);
     };
 
     const editTask = (id) => {
@@ -105,14 +123,14 @@ const TaskCard = () => {
 
         const newTasks = new Map([...tasks]);
         newTasks.set(foundTask.status, taskList)
-    
-        setTasks(newTasks)
+        saveTasksToLocalStorage(newTasks);
+        setTasks(newTasks);
     };
 
     const findTaskById = (tasksMap, taskId) => {
         return defaultColumns
         .map(
-            column => tasksMap.get(column.status).find(task => task != null && task.id == taskId)
+            column => tasksMap.get(column.status).find(task => task != null && task.id === taskId)
         ).find(task => task != null)
     }
 
@@ -148,16 +166,29 @@ const TaskCard = () => {
         newTasks.set(sourceStatus, sourceList)
         newTasks.set(targetStatus, targetList)
 
-        setTasks(newTasks)
+        saveTasksToLocalStorage(newTasks);
+        setTasks(newTasks);
     }
 
     return(
-        <DragDropContext onDragEnd={onDragCompleted}>
+        <DragDropContext onDragEnd={onDragCompleted} >
             <div className='container'>
                 {
                     defaultColumns.map((column, index) => {
                         return (
-                            <Cards showCreateField={index === 0} label={column.name} index={index} status={column.status} tasks={tasks.get(column.status)} toggleCompleted={toggleCompleted} deleteTask={deleteTask} editTask={editTask} editingTodo={editingTodo} addTodo={addTodo}/>
+                            <Cards
+                                key={column.status}
+                                showCreateField={index === 0}
+                                label={column.name} 
+                                index={index}
+                                status={column.status} 
+                                tasks={tasks.get(column.status)} 
+                                toggleCompleted={toggleCompleted} 
+                                deleteTask={deleteTask} 
+                                editTask={editTask} 
+                                editingTodo={editingTodo} 
+                                addTodo={addTodo}
+                            />
                         )
                     })
                 }

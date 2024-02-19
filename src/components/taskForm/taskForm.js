@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './taskForm.css';
 
 
-function TaskForm({addTodo}) {
+function TaskForm({addTodo, inputRef}) {
 
     const [taskValue, setTaskValue] = useState('');
 
@@ -18,6 +18,7 @@ function TaskForm({addTodo}) {
                 <input className='input'
                     type='text' 
                     placeholder='Write your task here'
+                    ref={inputRef}
                     value={taskValue}
                     onChange={value => setTaskValue(value.target.value)}
                 />

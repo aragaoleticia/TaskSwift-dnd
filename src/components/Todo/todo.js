@@ -15,19 +15,20 @@ function Todo({task, toggleCompleted, deleteTask, editTask, index, editingTodo})
 
     return(
         <Draggable draggableId={task.id} key={task.id} index={index}>
-            {(provided) => {
+            {(provided, snapshot) => {
                 if(task.isEditing) {
                     return (<EditForm key={task.id} task={task} editingTodo={editingTodo} />)
                 } else {
                     return (
-                        <div
-                            className={`todo ${classCompleted}`}
+                        <div className={`todo ${snapshot.isDragging ? 'dragging' : ''}`}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
-                            {...provided.dragHandleProps}>
+                            {...provided.dragHandleProps}
+                            
+                        >
+
                             <img src="/img/check.png" alt="Check icon"
-                            onClick={handleClick} className={classCompleted}
-                            />
+                            onClick={handleClick} className={classCompleted}/>
                             <p> 
                                 {task.task}
                             </p>
@@ -40,6 +41,7 @@ function Todo({task, toggleCompleted, deleteTask, editTask, index, editingTodo})
                                 />
                             </div>
                         </div>
+                        
                     )
                 }
             }}

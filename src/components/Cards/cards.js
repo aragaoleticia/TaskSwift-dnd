@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './cards.css';
 import { Droppable } from 'react-beautiful-dnd'
 import Todo from '../Todo/todo';
@@ -8,6 +8,7 @@ import AddTodo from "../taskCard/addtodo";
 function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, editingTodo, index, showCreateField, addTodo}){
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [hiddeAddTodo, setHiddeAddTodo] = useState(true);
+    const inputRef = useRef(null);
 
     const handleCardClick = () => {
         setShowTaskForm(true);
@@ -28,14 +29,22 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
         };
     }, []);
 
+    useEffect(() => {
+        if(!hiddeAddTodo){
+            inputRef.current.focus();
+        }
+    }, [hiddeAddTodo])
+
     return(
-        <Droppable droppableId={status} index={index}>
+        <Droppable droppableId={status} index={index} key={status}>
             {
-                (provided) => (
-                    <div className='container-cards'
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
+                (provided, snapshot) => (
+                    <div 
+                        className={`container-cards ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
                     >
+                    
                         <div className='card'>
                             <textarea placeholder={label}></textarea>
                             {
@@ -43,13 +52,13 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
                                 (
                                     <>
                                             {hiddeAddTodo && <AddTodo handleCardClick={handleCardClick}/>}
-                                            {showTaskForm && <TaskForm addTodo={addTodo}/>}
+                                            {showTaskForm && <TaskForm addTodo={addTodo} inputRef={inputRef}/>}
                                         </>
                                 ) : null
                             }
 
                             {
-                                (tasks || []).filter(task => task.status === status).map((task, index) => (
+                                tasks.filter(task => task.status === status).map((task, index) => (
                                 <Todo
                                     task={task}
                                     key={index}
@@ -58,10 +67,12 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
                                     editTask={editTask}
                                     editingTodo={editingTodo}
                                     index={index}
-                                    />
+                                />
                                 ))
                             }
                         </div>
+                        
+                        {provided.placeholder}
                     </div>
             )}
         </Droppable>
