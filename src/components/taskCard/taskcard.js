@@ -21,8 +21,8 @@ const TaskCard = () => {
     ]
 
     
-    const saveTasksToLocalStorage = () => {
-        localStorage.setItem('tasks', JSON.stringify(Array.from(tasks.entries())))
+    const saveTasksToLocalStorage = (newTaskMap) => {
+        localStorage.setItem('tasks', JSON.stringify(Array.from(newTaskMap.entries())))
     }
     
     const getTasksFromLocalStorage = () => {
