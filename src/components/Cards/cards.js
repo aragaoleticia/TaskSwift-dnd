@@ -5,7 +5,20 @@ import Todo from '../Todo/todo';
 import TaskForm from "../taskForm/taskForm";
 import AddTodo from "../taskCard/addtodo";
 
-function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, editingTodo, index, showCreateField, addTodo}){
+function Cards({label,
+            tasks, 
+            status,
+            toggleCompleted,
+            deleteTask, 
+            editTask, 
+            editingTodo, 
+            index, 
+            showCreateField, 
+            addTodo,
+            addColumnsNameToMap
+            })
+    {
+    
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [hiddeAddTodo, setHiddeAddTodo] = useState(true);
     const inputRef = useRef(null);
@@ -30,10 +43,20 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
     }, []);
 
     useEffect(() => {
-        if(!hiddeAddTodo){
+        if(showTaskForm){
             inputRef.current.focus();
         }
-    }, [hiddeAddTodo])
+
+    }, [showTaskForm]);
+
+
+    const [textColumnName, setTextName] = useState(label);
+
+    const handleChange = (event) => {
+        event.preventDefault()
+        addColumnsNameToMap(event.target.value, index)
+        setTextName(event.target.value);
+    };
 
     return(
         <Droppable droppableId={status} index={index} key={status}>
@@ -46,7 +69,10 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
                     >
                     
                         <div className='card'>
-                            <textarea placeholder={label}></textarea>
+                            <textarea
+                                value={textColumnName}
+                                onChange={handleChange}
+                            ></textarea>
                             {
                             showCreateField ? 
                                 (
@@ -77,7 +103,7 @@ function Cards({label, tasks, status, toggleCompleted, deleteTask, editTask, edi
             )}
         </Droppable>
     )
-}
+};
 
 
 export default Cards;

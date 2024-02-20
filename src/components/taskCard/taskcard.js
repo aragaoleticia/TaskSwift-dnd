@@ -4,45 +4,61 @@ import { v4 as uuidv4 } from 'uuid';
 import Cards from '../Cards/cards';
 import { DragDropContext } from 'react-beautiful-dnd'
 
-const TaskCard = () => {
-    const defaultColumns = [
-        {
-            name: 'Todo',
-            status: 'TODO'
-        },
-        {
-            name: 'Doing',
-            status: 'DOING'
-        },
-        {
-            name: 'Done',
-            status: 'DONE'
-        }
-    ]
-
-    
+const TaskCard = () => {    
     const saveTasksToLocalStorage = (newTaskMap) => {
-        localStorage.setItem('tasks', JSON.stringify(Array.from(newTaskMap.entries())))
+        localStorage.setItem('tasks', JSON.stringify(Array.from(newTaskMap.entries())));
     }
     
     const getTasksFromLocalStorage = () => {
         const tasksEntries = localStorage.getItem('tasks');
         if(tasksEntries) {
             return new Map(JSON.parse(tasksEntries))
-        }else{
+        } else {
+            const initialColumns = [
+                {
+                    name: 'Todo',
+                    status: 'TODO'
+                },
+                {
+                    name: 'Doing',
+                    status: 'DOING'
+                },
+                {
+                    name: 'Done',
+                    status: 'DONE'
+                }
+            ]    
+
             const initialTasks = new Map()
-            defaultColumns.forEach(column => {
+            initialColumns.forEach(column => {
                 initialTasks.set(column.status, [])
             })
-            return initialTasks
+
+            initialTasks.set('columns', initialColumns)
+
+            return initialTasks;
         }
     }
-    
-    const initialTasks = getTasksFromLocalStorage()
 
+    const getColumnsFromLocalStorage = () => {
+        const tasks = getTasksFromLocalStorage()
+        return tasks.get('columns')
+    }
 
+    const currentColumns = getColumnsFromLocalStorage();
+    const initialTasks = getTasksFromLocalStorage();
 
     const [tasks, setTasks] = useState(initialTasks);
+
+
+    const addColumnsNameToMap = (textColumnName, index) => {
+        currentColumns[index].name = textColumnName
+
+        const newTasks = new Map([...tasks])
+        newTasks.set('columns', currentColumns)
+        saveTasksToLocalStorage(newTasks)
+        setTasks(newTasks)
+    }
 
     const addTodo = (taskName) => {
         const todos = [
@@ -62,7 +78,8 @@ const TaskCard = () => {
         saveTasksToLocalStorage(newTasks);
         setTasks(newTasks);
     };
-    
+
+
 
     const toggleCompleted = id => {
         const foundTask = findTaskById(tasks, id)
@@ -128,7 +145,7 @@ const TaskCard = () => {
     };
 
     const findTaskById = (tasksMap, taskId) => {
-        return defaultColumns
+        return currentColumns
         .map(
             column => tasksMap.get(column.status).find(task => task != null && task.id === taskId)
         ).find(task => task != null)
@@ -174,7 +191,7 @@ const TaskCard = () => {
         <DragDropContext onDragEnd={onDragCompleted} >
             <div className='container'>
                 {
-                    defaultColumns.map((column, index) => {
+                    currentColumns.map((column, index) => {
                         return (
                             <Cards
                                 key={column.status}
@@ -188,6 +205,7 @@ const TaskCard = () => {
                                 editTask={editTask} 
                                 editingTodo={editingTodo} 
                                 addTodo={addTodo}
+                                addColumnsNameToMap={addColumnsNameToMap}
                             />
                         )
                     })
