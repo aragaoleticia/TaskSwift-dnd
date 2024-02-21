@@ -80,14 +80,13 @@ const TaskCard = () => {
     };
 
 
-
     const toggleCompleted = id => {
         const foundTask = findTaskById(tasks, id)
 
         const taskList = tasks.get(foundTask.status)
             .map(task => {
                 if(task.id === id) {
-                    return {...task, completed: !task.completed}
+                    return {...task, completed: true}
                 } else {
                     return task
                 }

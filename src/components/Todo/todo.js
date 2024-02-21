@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import './todo.css';
 import { Draggable } from 'react-beautiful-dnd'
 import EditForm from '../taskForm/editForm';
@@ -6,29 +5,26 @@ import EditForm from '../taskForm/editForm';
 
 function Todo({task, toggleCompleted, deleteTask, editTask, index, editingTodo}){
 
-    const [classCompleted, setClassCompleted] = useState('');
-
     const handleClick = () => {
         toggleCompleted(task.id)
-        setClassCompleted('completed')
     }
+
 
     return(
         <Draggable draggableId={task.id} key={task.id} index={index}>
-            {(provided, snapshot) => {
+            {(provided) => {
                 if(task.isEditing) {
                     return (<EditForm key={task.id} task={task} editingTodo={editingTodo} />)
                 } else {
                     return (
-                        <div className={`todo ${snapshot.isDragging ? 'dragging' : ''}`}
+                        <div  className={`todo ${task.completed ? 'completed':''}`}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             
                         >
 
-                            <img src="/img/check.png" alt="Check icon"
-                            onClick={handleClick} className={classCompleted}/>
+                            <img src="/img/check.png" alt="Check icon" onClick={handleClick}/>
                             <p> 
                                 {task.task}
                             </p>

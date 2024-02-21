@@ -15,13 +15,13 @@ function Cards({label,
             index, 
             showCreateField, 
             addTodo,
-            addColumnsNameToMap
+            addColumnsNameToMap,
             })
     {
     
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [hiddeAddTodo, setHiddeAddTodo] = useState(true);
-    const inputRef = useRef(null);
+    const inputRef = useRef();
 
     const handleCardClick = () => {
         setShowTaskForm(true);
@@ -61,9 +61,9 @@ function Cards({label,
     return(
         <Droppable droppableId={status} index={index} key={status}>
             {
-                (provided, snapshot) => (
+                (provided) => (
                     <div 
-                        className={`container-cards ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+                        className='container-cards'
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >

@@ -10,14 +10,8 @@
 
     user-select: none;
     margin-bottom: 8px;
-    /* min-height: 50px; */
 }
 
-
-.todo .dragging {
-    background-color: transparent;
-    color: white;
-}
 
 .todo p {
     font-size: 18px;
