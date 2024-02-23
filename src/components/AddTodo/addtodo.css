@@ -1,16 +1,18 @@
+@import '/src/index.css';
+
 .addTodo {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
-    margin-top: 25px;
+    background-image: var(--form-color);
+    margin-top: 15px;
     border-radius: 10px;
     cursor: pointer;
+    height: 50px;
 }
 
 .addTodo p {
-    font-size: 18px;
     font-weight: 500;
     flex-grow: 1;
     overflow-wrap: break-word;

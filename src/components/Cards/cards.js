@@ -3,7 +3,7 @@ import './cards.css';
 import { Droppable } from 'react-beautiful-dnd'
 import Todo from '../Todo/todo';
 import TaskForm from "../taskForm/taskForm";
-import AddTodo from "../taskCard/addtodo";
+import AddTodo from "../AddTodo/addtodo";
 
 function Cards({label,
             tasks, 
@@ -69,10 +69,12 @@ function Cards({label,
                     >
                     
                         <div className='card'>
-                            <textarea
+                            <input
+                                className="card-input"
+                                type="text"
                                 value={textColumnName}
                                 onChange={handleChange}
-                            ></textarea>
+                            ></input>
                             {
                             showCreateField ? 
                                 (

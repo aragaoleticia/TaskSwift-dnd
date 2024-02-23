@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './taskcard.css';
+import '../Cards/cards.css';
 import { v4 as uuidv4 } from 'uuid';
 import Cards from '../Cards/cards';
 import { DragDropContext } from 'react-beautiful-dnd'

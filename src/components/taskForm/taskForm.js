@@ -13,16 +13,16 @@ function TaskForm({addTodo, inputRef}) {
     }
 
     return(
-        <form className='taskForm' onSubmit={handleChange}> 
-            <div className='taskForm-input-button'>
-                <input className='input'
+        <form  onSubmit={handleChange}> 
+            <div className='taskForm'>
+                <input className='taskForm-input'
                     type='text' 
                     placeholder='Write your task here'
                     ref={inputRef}
                     value={taskValue}
                     onChange={value => setTaskValue(value.target.value)}
                 />
-                <button type='submit'>Add Task</button>
+                <button  className='taskForm-input-button' type='submit'>Add Task</button>
             </div>
         </form>
     )

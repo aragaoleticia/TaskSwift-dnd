@@ -1,27 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 100px 80px;
+    gap: 40px;
+}
+
 .container-cards {
     list-style: none;
     border: 1px solid rgb(65, 87, 84);
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 10px 15px 10px hsla(0, 0%, 8%, 0.767);
-    padding: 20px;
+    padding: 30px;
     width: 300px;
-    background-color: black;    
-
-    min-height: 100px;
+    opacity: 0.8;
+    background-color: black;
+    min-height: 150px;
     height: min-content;
 
 }
 
 
-.container-cards .dragging-over {
-    background-color: rgb(65, 87, 84);
-}
-
-
-
-.card textarea {
+.card-input {
     color: white;
     font-size: 20px;
-    background: black;
+    background: transparent;
     border: none;
+    text-align: center;
+    padding: 3px 30px;
 }

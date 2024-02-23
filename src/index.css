@@ -1,25 +1,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+:root{
+  --form-color: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
+}
 
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
-  background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
-  background-blend-mode: multiply;
+  background: rgb(99,7,88);
+  background: linear-gradient(0deg, rgba(99,7,88,1) 0%, rgba(163,59,173,1) 100%);
   background-size: cover;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
   font-family: "Open Sans", sans-serif;
-
+  font-size: 18px;
 }
 
-.App {
-  display: flex;
-  align-items: flex-start;
-  gap: 10%;
-}

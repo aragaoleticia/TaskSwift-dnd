@@ -12,15 +12,15 @@ function EditForm({editingTodo, task}) {
     }
 
     return(
-        <form className='taskForm' onSubmit={handleChange}>
-            <div className='taskForm-input-button'>
-                <input className='input'
+        <form onSubmit={handleChange}>
+            <div className='taskForm'>
+                <input className='taskForm-input'
                     type='text' 
                     placeholder='Update task'
                     value={taskValue}
                     onChange={value => setTaskValue(value.target.value)}
                 />
-                <button type='submit'>Update task</button>
+                <button className='taskForm-input-button' type='submit'>Update task</button>
             </div> 
         </form>
     )

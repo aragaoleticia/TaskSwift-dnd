@@ -1,7 +1,9 @@
 import './todo.css';
 import { Draggable } from 'react-beautiful-dnd'
 import EditForm from '../taskForm/editForm';
-
+import { ReactComponent as CheckImg } from "bootstrap-icons/icons/check-square-fill.svg";
+import { ReactComponent as PencilEdit } from "bootstrap-icons/icons/pencil-square.svg";
+import { ReactComponent as DeleteX } from "bootstrap-icons/icons/file-earmark-x-fill.svg";
 
 function Todo({task, toggleCompleted, deleteTask, editTask, index, editingTodo}){
 
@@ -23,18 +25,13 @@ function Todo({task, toggleCompleted, deleteTask, editTask, index, editingTodo})
                             {...provided.dragHandleProps}
                             
                         >
-
-                            <img src="/img/check.png" alt="Check icon" onClick={handleClick}/>
+                            <CheckImg alt='check icon' className='img-check'  onClick={handleClick}/>
                             <p> 
                                 {task.task}
                             </p>
-                            <div className="img-edit-trash">
-                                <img src='/img/pen-edit.png' alt="pen edit icon"
-                                    onClick={() => editTask(task.id)}
-                                />
-                                <img src="/img/trash.png" alt="trash icon"
-                                    onClick={() => deleteTask(task.id)}
-                                />
+                            <div>
+                                <PencilEdit className='img-edit-trash' onClick={() => editTask(task.id)}/>
+                                <DeleteX className='img-edit-trash' onClick={() => deleteTask(task.id)}/>
                             </div>
                         </div>
                         
