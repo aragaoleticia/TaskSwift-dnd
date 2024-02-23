@@ -28,3 +28,17 @@
     text-align: center;
     padding: 3px 30px;
 }
+
+
+@media (max-width: 1167px) {
+    .container {
+        flex-direction: column ;
+    }
+    .container-cards {
+        width: 250px;
+        min-height: 100px;
+    }
+    .card-input {
+        font-size: 16px;
+    }
+}
